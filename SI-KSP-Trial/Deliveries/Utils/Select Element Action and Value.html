@@ -1,0 +1,264 @@
+<meta http-equiv='x-ua-compatible' content='IE=8'>
+<html><head><title>KickStart Pro Automation Solution</title>
+<div align='center'><img src='Logo.png'/><H1>Select Elements, Actions and Values</H1></div>
+<meta charset="utf-8" />
+<style>
+table { margin:10px auto; border-collapse:collapse; border:2px solid gray; }
+th{ background-color:#5AAAA5;color:DarkBlue; }
+td,th { border:1px solid darkblue; text-align left; padding:5px;}
+lbl { font-size: 20px;border:5px; text-align left; padding:10px;color:darkblue}
+lblHeader { font-size: 25px;border:1px; text-align left; padding:1px;color:#A73035}
+sublbl { border:1px; text-align left; padding:0px;font-size:small;color:#A4A4A4}
+hbtn{cursor:pointer;cursor:hand;display:none}
+
+.select {
+	width: 500px;
+    height: 25px;
+    border: none;
+    font-size: 18px;
+    color: #1c87c9;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 4px 4px #ccc;
+}
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 12px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 12px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button1 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #4CAF50;
+}
+
+.button1:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.button2 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #008CBA;
+}
+
+.button2:hover {
+  background-color: #008CBA;
+  color: white;
+}
+
+.button3 {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #f44336;
+}
+
+.button3:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+.button4 {
+  background-color: white;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+.button4:hover {background-color: #e7e7e7;}
+
+.button5 {
+  background-color: white;
+  color: black;
+  border: 2px solid #ee8C1A;
+}
+
+.button5:hover {
+  background-color: #ee8C1A;
+  color: white;
+}
+textarea {
+  width: 505px;
+  height: 100px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-size: 16px;
+  resize: none;
+  ursor: hand;  
+}
+input[type=text] {
+    background-color: lightgray;
+    color: black;
+	width: 500px;
+    border: none;
+    padding: 12px 20px;
+	font-size: 16px;
+    text-decoration: none;
+    margin: 5px 4px;
+    cursor: hand;  
+}
+
+</style>
+
+<SCRIPT type="text/JavaScript" src="_selectElements.js"></Script>
+<SCRIPT type="text/JavaScript" src="_selectActions.js"></Script>
+<SCRIPT type="text/JavaScript" src="KickStart Pro.js"></Script>
+
+<div align='center'>
+	<!----------------------------------------------------------------------------
+	Elements
+	----------------------------------------------------------------------------->
+	<table>
+		<tr>
+			<td>
+				<table>
+					<tr><lblHeader>Select Elements</lblHeader></tr>
+					<tr><td><input type="file" accept='text/*' id="ElementsFileInput" />
+					<script type="text/javascript">
+						function readSingleFile(evt){var f = evt.target.files[0];if (f){var r = new FileReader();r.onload=function(e){var contents=e.target.result;js_PopulateElementLists( contents );}
+						r.readAsText(f);}else{ alert("Failed to load file");}}
+						
+						document.getElementById('ElementsFileInput').addEventListener('change', readSingleFile, false);
+					</SCRIPT>
+					<hr><lbl>Select Page: </lbl><BR>
+					<select class="select" id="Page_id" size="1" onchange='js_FilterElementBy( js_GetDropDownSelectedText( "Page_id" ))'></select>
+					<hr><lbl>Select Label: </lbl><BR>
+					<select class="select" id="Label_id" size="1" onchange='js_showElement( "Add_Element_id" );js_collectLocateByAndValue()'></select>
+
+					<span id='Element_Div_iFrame_id' style='display:none'>		
+						<hr><lbl>iFrame: </lbl><BR>
+						<input type=text id='Element_iFrame_id' disabled><br>
+					</span>
+					
+					<hr><lbl>Element Located By (Not Editable):</lbl><br>
+					<input type=text id='Element_Located_By_id' disabled><br>
+					<lbl>Element Located By Value (<i>Not Editable</i>):</lbl><br>
+					<textarea id='Element_Located_By_Value_id' disabled></textarea>
+					
+					<span id='Element_Div_Text_id' style='display:none'>		
+						<hr><lbl>Text: </lbl><BR>
+						<input type=text id='Element_Text_id' disabled><BR>
+					</span>
+					
+					<span id='Element_Div_Index_id' style='display:none'>
+						<hr><lbl>Index: </lbl><BR>
+						<input type=text id='Element_Index_id' disabled><BR>
+					</span>
+
+					<BR><div align='left'>
+					<input class='button button1' type=button value='Add Page & Label' id='Add_Element_id' style='display:none' onClick='js_Add_Element();js_showElementButtons()'></div></td><tr>
+					
+					<tr><td><lbl>Current Elements (Controls):</lbl><BR>
+					<select id="To_List_id" size="5" ondblClick='js_RemoveSelectItem( "To_List_id" )' style="width: 505px;display:none"></select><BR>
+					
+					<input class='button button2' type=button value='Up' id='Element_Up_id' style='display:none' onClick='js_MoveElement( "To_List_id", "Up" )' >
+					<input class='button button2' type=button value='Down' id='Element_Down_id' style='display:none' onClick='js_MoveElement( "To_List_id", "Down" )' >
+					<input class='button button2' type=button value='Top' id='Element_Top_id' style='display:none' onClick='js_MoveElement( "To_List_id", "Top" )' >
+					<input class='button button2' type=button value='Bottom' id='Element_Bottom_id' style='display:none' onClick='js_MoveElement( "To_List_id", "Bottom" )' >
+					
+					<br><input class='button button5' type=button value='Edit Current Elements' id='Edit_Current_Elements_id' style='display:none' onClick='js_setElementValueFromElement( "Edit_Elements_id", "To_List_id" )'>
+					<input class='button button5' type=button value='Clear Current Elements' id='Clear_Current_Elements_id' style='display:none' onClick='js_ClearElements( "To_List_id" );js_hideElement( "Edit_Elements_id" );js_hideElementButtons()' >
+					</td></tr><tr><td><lbl>Edit Elements (Controls):</lbl><BR>
+					<textarea id='Edit_Elements_id' style='display:none'></textarea></td></tr>
+				</table>
+				
+				<select id="hLabel_id" size="1" style='display:none'></select>
+				</td>
+				<td>
+			</td>
+			<td>	
+				<!----------------------------------------------------------------------------
+				Actions and Values
+				----------------------------------------------------------------------------->
+				<table>
+					<tr><lblHeader>Select Actions & Values</lblHeader></tr>
+					<tr><td><input type="file" accept='text/*' id="ActionsValuesFileInput" />
+					<script type="text/javascript">
+
+					function readSingleFile(evt){var f = evt.target.files[0];if (f){var r = new FileReader();r.onload=function(e){var contents=e.target.result;js_PopulateActionLists( contents );}
+						r.readAsText(f);}else{ alert("Failed to load file");}}
+					document.getElementById('ActionsValuesFileInput').addEventListener('change', readSingleFile, false);
+					</SCRIPT>
+
+					<hr><lbl>Select Action: </lbl><BR>
+					<select class="select" id="Action_id" size="1" onchange='js_FilterBy( js_GetDropDownSelectedText( "Action_id" ))' ></select><hr>
+
+					<input type=text id='ActionName_id' style='display:none'>
+					<span id='new_id' style='color: blue;font-size: 25px;display:none' >*</span>
+					
+					<lbl>Description: </lbl><br><textarea id='Description_id' disabled></textarea><br>
+					<lbl>Parameters: </lbl><br><input type=text id='Parameters_id' disabled><br>
+					<lbl>Control Required: </lbl><br><input type=text id='Control Required_id' disabled><br>
+					<lbl>Value (<i>Editable</i>): </lbl><br><input type=text id='Example_id'>
+
+					<div align='left'><input class='button button1' type=button value='Add Action & Value' id='Add_Action_id' style='display:none' onClick='js_Add_Action_Value();js_showActionButtons()'></div></td><tr>
+
+					<tr><td>
+					<lbl>Current Actions (Keywords):</lbl><br><select id="To_ActionList_id" size="5" onClick='js_SetSelectedListIndex( "To_ActionList_id", "To_ValueList_id" )' ondblClick='js_RemoveSelectItem( "To_ActionList_id" );js_RemoveSelectItem( "To_ValueList_id" )' style="width: 498px;display:none"></select><br>
+					<lbl>Current Values:</lbl><br><select id="To_ValueList_id" size="5" onClick='js_SetSelectedListIndex( "To_ValueList_id", "To_ActionList_id" )' ondblClick='js_RemoveSelectItem( "To_ValueList_id" );js_RemoveSelectItem( "To_ActionList_id" )' style="width: 498px;display:none"></select><br>
+
+					<input class='button button2' type=button value='Up' id='Action_Up_id' onClick='js_MoveStep( "To_ActionList_id", "Up" );js_MoveStep( "To_ValueList_id", "Up" )' style='cursor:pointer;cursor:hand;display:none'>
+					<input class='button button2' type=button value='Down' id='Action_Down_id' onClick='js_MoveStep( "To_ActionList_id", "Down" );js_MoveStep( "To_ValueList_id", "Down" )' style='cursor:pointer;cursor:hand;display:none'>
+					<input class='button button2' type=button value='Top' id='Action_Top_id' onClick='js_MoveStep( "To_ActionList_id", "Top" );js_MoveStep( "To_ValueList_id", "Top" )' style='cursor:pointer;cursor:hand;display:none'>
+					<input class='button button2' type=button value='Bottom' id='Action_Bottom_id' onClick='js_MoveStep( "To_ActionList_id", "Bottom" );js_MoveStep( "To_ValueList_id", "Bottom" )' style='cursor:pointer;cursor:hand;display:none'>
+					
+					<br><input class='button button5' type=button value='Edit Current Actions & Values' id='Edit_Current_Actions_id' onClick='js_setElementValueFromElement( "Action_Steps_id", "To_ActionList_id" );js_setElementValueFromElement( "Value_Steps_id", "To_ValueList_id" )' style='cursor:pointer;cursor:hand;display:none'>
+					<input class='button button5' type=button value='Clear Current Actions & Values' id='Clear_Current_Actions_id' onClick='js_ClearCurrentSteps( "To_ActionList_id" );js_ClearCurrentSteps( "To_ValueList_id" );js_hideActionButtons();js_hideElement("Action_Steps_id");js_hideElement("Value_Steps_id")' style='cursor:pointer;cursor:hand;display:none'>
+
+					</td></tr><tr><td><lbl>Edit Actions & Values:</lbl><BR>
+					<textarea id='Action_Steps_id' style='display:none'></textarea>
+					<br><textarea id='Value_Steps_id' style='display:none'></textarea>
+
+					</td></tr>
+				</table>
+				</td>
+				<select id="hNew_id" size="1" style=display:none></select>
+				<select id="hDescription_id" size="1" style=display:none></select>
+				<select id="hParameters_id" size="1" style=display:none></select>
+				<select id="hControl Required_id" size="1" style=display:none></select>
+				<select id="hExample_id" size="1" style=display:none></select>
+			</td>	
+		</tr>	
+	</table>	
+	<!----------------------------------------------------------------------------
+	Reusable componenents 
+	<td>
+	<table>
+		<tr><lblHeader>Select Global Reusable Component</lblHeader></tr>
+		<tr><td><input type="file" accept='text/*' id="GlobalReusableComponentFileInput" />
+		<script type="text/javascript">
+
+		function readSingleFile(evt){var f = evt.target.files[0];if (f){var r = new FileReader();r.onload=function(e){var contents=e.target.result;js_PopulateGlobalReusableComponentLists( contents );}
+			r.readAsText(f);}else{ alert("Failed to load file");}}
+		document.getElementById('GlobalReusableComponentFileInput').addEventListener('change', readSingleFile, false);
+		</SCRIPT>
+		
+		<hr><lbl>Select Global Reusable Component: </lbl><BR><select class="select" id="GlobalReusableComponent_id" size="1" onchange='js_FilterGRCBy( js_GetDropDownSelectedText( "GlobalReusableComponent_id" ))' ></select><BR>
+		<BR><lbl>Description: </lbl><BR><textarea id='GRC_Description_id' rows='1' cols='30' style='font-size: 15px;background:lightGray;width: 1000px;display:' disabled></textarea><BR>
+		<BR><lbl>Parameters: </lbl><BR><textarea id='GRC_Parameters_id' rows='1' cols='30' style='font-size: 15px;background:lightGray;width: 1000px;display:' disabled></textarea><BR>
+		<BR><lbl>Reusable Component: </lbl><BR><textarea id='GRC_RC_id' rows='1' cols='30' style='font-size: 15px;background:white;width: 1000px;display:' ></textarea><BR>
+		<BR><lbl>Example (<i>Editable</i>): </lbl><BR><textarea id='GRC_Example_id' rows='1' cols='30' style='font-size: 15px;background:white;width: 1000px;display:' ></textarea><BR>
+		</td></tr>
+		
+	</table>
+
+	</td>
+	---------------------------------------------------------------------------->
+	<select id="hGRC_Description_id" size="1" style=display:none></select>
+	<select id="hGRC_Parameters_id" size="1" style=display:none></select>
+	<select id="hGRC_Examples_id" size="1" style=display:none></select>
+</div>
+
+<body Onload=''>
+</body></html>

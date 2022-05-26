@@ -1,0 +1,623 @@
+<html>
+    <head>
+        <title>Elements</title>
+    </head>
+    <body>
+        <SCRIPT language="JavaScript">
+            function getFiles(){
+                try{
+                    alert("getFiles");
+                    
+                    var fs = require("fs");
+                    var dirname = '/Users/ialassi/Documents/workspace/ServiceSight/HTML';
+                    alert(dirname);
+                    console.log("Going to get file info!");
+                    fs.stat(dirname, function (err, stats) {
+                    if (err) {
+                            return console.error(err);
+                    }
+                    console.log(stats);
+                    console.log("Got file info successfully!");
+                    
+                    // Check file type
+                    console.log("isFile ? " + stats.isFile());
+                    console.log("isDirectory ? " + stats.isDirectory());
+                    });
+                }catch(err) {
+                    alert(err.message);
+                }
+            }
+                
+            /*
+            var _getAllFilesFromFolder = function("/Users/ialassi/Documents/workspace/ServiceSight/HTML"){
+                alert("HERE");
+                
+                var filesystem = require("fs");
+                var results = [];
+                
+                filesystem.readdirSync(dir).forEach(function(file) {
+                    file = dir+'/'+file;
+                    var stat = filesystem.statSync(file);
+                    if (stat && stat.isDirectory()) {
+                        results = results.concat(_getAllFilesFromFolder(file))
+                    }else results.push(file);
+                    }
+                );
+                alert(results)
+                return results;
+                                                    
+            };
+            */
+        
+        /*
+        'use strict';
+        function getFiles(file){
+            
+            try{
+                alert( "getFiles" )
+                var AxFSObj = new ActiveXObject("Scripting.FileSystemObject");
+                var AxFSObjFile = AxFSObj.getFile(file);
+                Size = AxFSObjFile.size; //in kb
+                alert("Your File Size is"+Size);
+            }catch(err) {
+                alert(err.message);
+            }
+        }
+        */
+        /*
+        function getFiles( dir ){
+            
+            alert( "getFiles( " + dir + ")" )
+            
+            fileList = [];
+            
+            var files = fs.readdirSync(dir);
+            for(var i in files){
+                if (!files.hasOwnProperty(i)) continue;
+                var name = dir+'/'+files[i];
+                if (!fs.statSync(name).isDirectory()){
+                    fileList.push(name);
+                }
+            }
+            alert( "getFiles - fileList ( " + fileList + ")" )
+
+            return fileList;
+        }*/
+            function LaunchApp( varApp )
+            {
+                alert("LaunchApp");
+                System.exec("java -jar /Users/ialassi/Desktop/SS_DEMO.jar");
+            }
+            
+            function getValue( varID )
+            {
+                alert( document.getElementById(varID).getAttribute("value"));
+            }
+            //===================================================
+            function updateElementValue( varElementID, varValue )
+            //===================================================
+            {
+                document.getElementById(varElementID).value = varValue;
+            }
+            //===================================
+            function setText( varID, varIDValue )
+            //===================================
+            {
+                var _Select = document.getElementById( varIDValue );
+                var varSelectedOptions = getSelectValues( _Select )
+                var iIndexOf = varSelectedOptions.indexOf(",")
+                while( iIndexOf >=0 ){
+                    varSelectedOptions = varSelectedOptions.replace( ",", "\n" )
+                    iIndexOf = varSelectedOptions.indexOf(",")
+                }
+                document.getElementById(varID).value = varSelectedOptions;
+            }
+            //===================================
+            function setValue( strID, strValue )
+            //===================================
+            {
+                document.getElementById(strID).value = strValue;
+            }
+            //=====================================
+            function checkbox( strCheckboxId, strID, strValue )
+            //=====================================
+            {
+				var strCurrentValue;
+				if( strCheckboxId.checked == true ){
+					strCurrentValue = document.getElementById(strID).value;
+					strCurrentValue = strCurrentValue + "\n" + strValue
+					strCurrentValue = strCurrentValue.trim();
+				}else if( strCheckboxId.checked == false ){
+					strCurrentValue = document.getElementById(strID).value;
+					strCurrentValue = strCurrentValue.replace( strValue, "" ).trim();
+				}
+				document.getElementById(strID).value = strCurrentValue
+            }
+            //==============================
+            function getSelectValues(select)
+            //==============================
+            {
+                var result = [];
+                var options = select && select.options;
+                var opt;
+                var varSelectedOptions = "";
+            
+                for (var i=0, iLen=options.length; i<iLen; i++) {
+                    opt = options[i];
+                
+                    if (opt.selected) {
+                        varSelectedOptions = varSelectedOptions + opt.text + ",";
+                    }
+                }
+                
+                varSelectedOptions = varSelectedOptions.substring(0, varSelectedOptions.length - 1)
+                return varSelectedOptions;
+                
+                //<form id="form1" name="form1" method="get" action="F.png">
+                //<td><input type="submit" id="Submit" value="Submit" onClick='getPageTitle()'/></td>
+                //</form>
+                //<td><input type="submit" id="Submit" value="Title" onClick='getPageTitle()'/></td>
+
+            }
+            //============================
+            function myFunction(intIndex){
+            //============================
+                intIndex++;
+                var x = document.createElement("INPUT");
+                x.setAttribute("type", "Button");
+                x.setAttribute("id", "Btn id" + intIndex);
+                x.setAttribute("value", "Btn " + intIndex);
+                x.setAttribute("onClick", "myFunction(" + intIndex + ")");
+                document.body.appendChild(x);
+            }
+            //======================
+            function getPageTitle(){
+            //======================
+                alert(document.title)
+                return document.title;
+            }
+			function collectByClass(strClass){
+				var strBtnName;
+				try{
+					switch(strClass)
+					{
+						case "button button3":
+							strBtnName = "View Failed Steps";
+							break;
+						case "button button1":
+							strBtnName = "View Passed Steps";
+							break;
+
+					}
+					var x = document.getElementsByClassName(strClass);
+					if(x.length == 1)
+						alert("There is (" + x.length + ") button with name ("+ strBtnName + ")" )
+					else if(x.length > 1)
+						alert("There are (" + x.length + ") buttons with name ("+ strBtnName + ")" )
+				}catch(err){}
+			}
+			function updateBG( objElement, strBGColor ){
+				objElement.style.backgroundColor = strBGColor;
+			}
+			function updateBGDisplay( objElement, strBGColor, strTextID ){
+				objElement.style.backgroundColor = strBGColor;
+				var objText = document.getElementById( strTextID );
+				
+				if( objText.style.display == ""){
+					objText.style.display = "none"
+				}else if( objText.style.display == "none"){
+					objText.style.display = "";
+					objText.value = "TEXTME";
+				}
+				
+			}
+			function updateLabel( labelId, strValue ){
+				document.getElementById( labelId ).innerHTML =strValue;
+			}
+			function js_hideObject( sID )
+			{
+				document.getElementById(sID).style.display = "none";
+			}
+			function js_unhideObject( sID )
+			{
+				document.getElementById(sID).style.display = "";
+			}
+			function showElement(strElement)
+			{
+				switch(strElement){
+					case "Text Field":
+						js_unhideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;
+					case "Checkbox":
+						js_hideObject("TextField_id");		
+						js_unhideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;
+					case "Radio Button":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_unhideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;	
+					case "Multi Select":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_unhideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;	
+					case "Single Select":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_unhideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;	
+					case "DropDown":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_unhideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_hideObject("Button_id");
+						break;	
+					case "Table":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_unhideObject("Table_id");
+						js_hideObject("Button_id");
+						break;	
+					case "Button":
+						js_hideObject("TextField_id");		
+						js_hideObject("checkbox_id");		
+						js_hideObject("RadioButton_id");		
+						js_hideObject("Multi_Select_id");
+						js_hideObject("Single_Select_id");
+						js_hideObject("DropDown_id");
+						js_hideObject("Table_id");
+						js_unhideObject("Button_id");
+						break;	
+				}
+			}
+        </SCRIPT>
+ 	
+		<style> 
+			lbl {
+				width: 25%;
+				padding: 10px 15px;
+				margin: 0px 0;
+				font-size: 20px;
+				color: black;
+				box-sizing: border-box;
+			}
+			lbl1 {
+				width: 25%;
+				padding: 10px 15px;
+				margin: 0px 0;
+				font-size: 22px;
+				color: blue;
+				box-sizing: border-box;
+			}
+			.button {
+				border: none;
+				color: white;
+				padding: 16px 32px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				margin: 4px 2px;
+				transition-duration: 0.4s;
+				cursor: pointer;
+			}
+			.button1 {
+				background-color: white;
+				color: black;
+				border: 2px solid #4CAF50;
+			}
+			.button1:hover {
+				background-color: #4CAF50;
+				color: white;
+			}
+			.button2 {
+				background-color: white;
+				color: black;
+				border: 2px solid #008CBA;
+			}
+			.button2:hover {
+				background-color: #008CBA;
+				color: white;
+			}
+			.button3 {
+				background-color: white;
+				color: black;
+				border: 2px solid #A08CBA;
+			}
+			.button3:hover {
+				background-color: #A08CBA;
+				color: white;
+			}
+			body {background-color : #d3d3d3; font-family : "Open Sans", sans-serif;}
+			h1 {padding: 40px; text-align: center; font-size: 1.5em;}
+			li {
+				text-decoration : none; 
+				color : #2d2f31;
+				font-size: 16px;
+			}
+			nav {
+				  width : 300px; 
+				  background: white;
+				  margin : 40px auto; 
+			}
+			span {
+			  padding : 30px;
+			  background : #2d2f31; 
+			  color : white;
+			  font-size : 1.2em;
+			  font-variant : small-caps;
+			  cursor : pointer;
+			  display: block;
+			}
+			span::after {
+			  float: right;
+			  right: 10%;
+			}
+			.slide {
+			  clear:both;
+			  width:50%;
+			  height:0px;
+			  overflow: hidden;
+			  text-align: left;
+			  transition: height .4s ease;
+			}
+			.slide li {padding : 10px;}
+			#touch {position: absolute; opacity: 0; height: 0px;}    
+			#touch:checked + .slide {height: 350px;} 
+			
+			#SoccerBall_4Div {
+			  position: absolute;
+			  z-index: 9;
+			  background-color: #f1f1f1;
+			  text-align: center;
+			  border: 1px solid #d3d3d3;
+			}
+
+			#SoccerBall_4Divheader {
+			  padding: 10px;
+			  cursor: move;
+			  z-index: 10;
+			  background-color: #2196F3;
+			  color: #fff;
+			}
+			#SoccerBall_1Div {
+			  position: absolute;
+			  z-index: 9;
+			  background-color: #f1f1f1;
+			  text-align: center;
+			  border: 1px solid #d3d3d3;
+			}
+
+			#SoccerBall_1Divheader {
+			  padding: 10px;
+			  cursor: move;
+			  z-index: 10;
+			  background-color: #2196F3;
+			  color: #fff;
+			}
+			textarea{
+				color: black;
+				background-color: lightblue;
+				border-width:     3px;
+				border-color:     lightgreen;
+				font-size : 1.5em;
+			}
+			select {
+				color: black;
+				background-color: lightblue;
+				border-width:     3px;
+				border-color:     lightgreen;
+				font-size : 1.5em;
+			}
+			input {
+				color: black;
+				background-color: lightblue;
+				border-width:     3px;
+				border-color:     lightgreen;
+				font-size : 1.5em;
+			}
+		</style>
+		
+		<!--	
+			<lbl>Automation Step Source:</lbl><lbl1 id=automation_src_id></lbl1><br><br>
+			<lbl>Control: </lbl><input type="text" id="Control_id" value=""/>
+			<lbl>Action: </lbl><input type="text" id="Action_id" value=""/>
+			<lbl>Value: </lbl><input type="text" id="Value_id" value=""/>
+			<div class="column" id="SoccerBall_4Div"><img src="C:/Saturn Interactive/Images/Soccer Ball 4.png"></div>
+			<div class="column" id="SoccerBall_1Div"><img src="C:/Saturn Interactive/Images/Soccer Ball 1.png"></div>
+		-->	
+			
+			<div class="column" id="SoccerBall_4Div"><img src="C:/Saturn Interactive/Images/Soccer Ball 4.png"></div>
+		
+  
+		<SCRIPT>
+			dragElement(document.getElementById("SoccerBall_4Div"));
+			dragElement(document.getElementById("SoccerBall_1Div"));
+		
+			function dragElement(elmnt) {
+				var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+				if (document.getElementById(elmnt.id + "header")) {
+					// if present, the header is where you move the DIV from:
+					document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+				} else {
+					// otherwise, move the DIV from anywhere inside the DIV:
+					elmnt.onmousedown = dragMouseDown;
+				}
+
+				function dragMouseDown(e) {
+					e = e || window.event;
+					e.preventDefault();
+					// get the mouse cursor position at startup:
+					pos3 = e.clientX;
+					pos4 = e.clientY;
+					document.onmouseup = closeDragElement;
+					// call a function whenever the cursor moves:
+					document.onmousemove = elementDrag;
+				}
+
+				function elementDrag(e) {
+					e = e || window.event;
+					e.preventDefault();
+					// calculate the new cursor position:
+					pos1 = pos3 - e.clientX;
+					pos2 = pos4 - e.clientY;
+					pos3 = e.clientX;
+					pos4 = e.clientY;
+					// set the element's new position:
+					elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+					elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+				}
+
+				function closeDragElement() {
+					// stop moving when mouse button is released:
+					document.onmouseup = null;
+					document.onmousemove = null;
+				}
+			}
+        </SCRIPT>
+		<div align='center'>		
+			<table>
+				<tr>
+					<td>
+						<lbl>Automation Step Source:</lbl><lbl1 id=automation_src_id></lbl1><br><br><br>
+						<lbl>Test Objective:</lbl><lbl1 id=Action_Msg_id></lbl1>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+						<nav>
+							<label for="touch"><span>Select Element for Testing</span></label>               
+							<input type="checkbox" id="touch"> 
+							<ul class="slide">
+								<li onClick='showElement("Text Field")'>Text Field</li>
+								<li onClick='showElement("Checkbox")'>Checkbox</li> 
+								<li onClick='showElement("Radio Button")'>Radio Button</li> 
+								<li onClick='showElement("Multi Select")'>Multi Select</li> 
+								<li onClick='showElement("Single Select")'>Single Select</li> 
+								<li onClick='showElement("DropDown")'>DropDown</li>
+								<li onClick='showElement("Table")'>Table</li>
+								<li onClick='showElement("Button")'>Button</li>
+							</ul>
+						</nav> 
+					</td>
+				</tr>
+				<tr>
+					<td>	
+						<span id=TextField_id style="display:none">
+							<label>Text Field</label><hr>
+							<input type="text" id="TextFieldText">
+						</span>
+						<span id=checkbox_id style="display:none">
+							<label>Checkbox</label><hr>
+							<input type="checkbox" name="vehicle" id="CheckboxBikeID" value="Bike" onClick='checkbox( this, "CheckboxText", "I have a bike" )'> I have a bike<br>
+							<input type="checkbox" name="vehicle" id="CheckboxCarID" value="Car" onClick='checkbox( this, "CheckboxText", "I have a car" )'> I have a car<hr>
+							<textarea id='CheckboxText' rows='2' cols='15'></textarea>
+						</span>
+						<span id=RadioButton_id style="display:none">
+							<label>Radio Button</label><hr>
+							<input type="radio" name="gender" id="RadioMaleID" value="male" onClick='setValue( "RadioButtonText", "Male" )'> Male<br>
+							<input type="radio" name="gender" id="RadioFemaleID" value="female" onClick='setValue( "RadioButtonText", "Female" )'> Female<hr>
+							<input type="text" id="RadioButtonText">
+						</span>
+						<span id=Multi_Select_id style="display:none">
+							<label>Multiple Selection</label><hr>
+							<select id="MultiSelect" size="3" multiple="multiple" tabindex="1" onChange='setText("MultiSelectText", "MultiSelect" )'>
+								<option value="1">One</option>
+								<option value="2">Two</option>
+								<option value="3">Three</option>
+							</select><hr>
+							<textarea id='MultiSelectText' rows='3' cols='15'></textarea>
+						</span>
+						<span id=Single_Select_id style="display:none">
+							<label>Single Selection </label><hr>
+							<select id="SingleSelect" size="3" tabindex="1" onChange='setText( "SingleSelectionText", "SingleSelect" )'>
+								<option value="cat">cat</option>
+								<option value="bird">bird</option>
+								<option value="sheep">sheep</option>
+							</select><hr>
+							<input type="text" id="SingleSelectionText">
+						</span>
+						<span id=DropDown_id style="display:none">
+							<label>DropDown</label><hr>
+							<select id="DropDown" size="1" tabindex="1" onChange='setText( "DropDownText", "DropDown" )'>
+								<option value="Private plane">Private plane</option>
+								<option value="Fight jet">Fight jet</option>
+								<option value="Cargo">SpaceX</option>
+							</select><hr>
+							<input type="text" id="DropDownText">
+						</span>
+						<span id=Button_id style="display:none">
+							<label>Button</label><hr>
+							<button class="button button1" id="Btn1" onClick='updateElementValue( "ButtonText", "Button1" )'>Button1</button>	
+							<button class="button button2" id="Btn2" onClick='updateElementValue( "ButtonText", "Button2" )'>Button2</button><hr>
+							<input type="text" id="ButtonText">
+						</span>
+
+						<span id=Table_id style="display:none">
+							<label>Table</label><hr>
+								<table id="people_table" width="500" border="1">
+									<tr bgcolor='lightYellow'>
+										<th>Firstname</th>
+										<th>Lastname</th>
+										<th>Age</th>
+									</tr>
+									<tr  bgcolor='white'>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA1")'>Bob<textArea type="text" id="TextA1" value="" style='display:none'/></TextArea></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA2")'>Johnson<textArea type="text" id="TextA2" value="" style='display:none'/></TextArea></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA3")'>45<textArea type="text" id="TextA3" value="" style='display:none'/></TextArea></td>
+									</tr>
+									<tr bgcolor='white'>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB1")'>a<input type="text" id="TextB1" value="a" style='display:none'></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB2")'>b<input type="text" id="TextB2" value="b" style='display:none'></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB3")'>c<input type="text" id="TextB3" value="c" style='display:none'></td>
+									</tr>
+									<tr bgcolor='white'>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My first name link is clicked')">My First Name</a></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My last name link is clicked')">My Last Name</a></td>
+										<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My age link is clicked')">My Age</a></td>
+									</tr>
+								</table>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</div>	
+    </body>
+</html>
