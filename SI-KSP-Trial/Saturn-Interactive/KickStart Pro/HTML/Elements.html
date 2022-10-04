@@ -119,21 +119,6 @@
             {
                 document.getElementById(strID).value = strValue;
             }
-            //=====================================
-            function checkbox( strCheckboxId, strID, strValue )
-            //=====================================
-            {
-				var strCurrentValue;
-				if( strCheckboxId.checked == true ){
-					strCurrentValue = document.getElementById(strID).value;
-					strCurrentValue = strCurrentValue + "\n" + strValue
-					strCurrentValue = strCurrentValue.trim();
-				}else if( strCheckboxId.checked == false ){
-					strCurrentValue = document.getElementById(strID).value;
-					strCurrentValue = strCurrentValue.replace( strValue, "" ).trim();
-				}
-				document.getElementById(strID).value = strCurrentValue
-            }
             //==============================
             function getSelectValues(select)
             //==============================
@@ -178,23 +163,9 @@
                 return document.title;
             }
 			function collectByClass(strClass){
-				var strBtnName;
 				try{
-					switch(strClass)
-					{
-						case "button button3":
-							strBtnName = "View Failed Steps";
-							break;
-						case "button button1":
-							strBtnName = "View Passed Steps";
-							break;
-
-					}
 					var x = document.getElementsByClassName(strClass);
-					if(x.length == 1)
-						alert("There is (" + x.length + ") button with name ("+ strBtnName + ")" )
-					else if(x.length > 1)
-						alert("There are (" + x.length + ") buttons with name ("+ strBtnName + ")" )
+					alert("There are (" + x.length + ") elements with class value ("+ strClass + ")" )
 				}catch(err){}
 			}
 			function updateBG( objElement, strBGColor ){
@@ -212,123 +183,44 @@
 				}
 				
 			}
-			function updateLabel( labelId, strValue ){
-				document.getElementById( labelId ).innerHTML =strValue;
-			}
 
         </SCRIPT>
-		<style> 
-		input[type=text] {
-			width: 25%;
-			padding: 10px 15px;
-			margin: 0px 0;
-			font-size: 15px;
-			color: blue;
-			box-sizing: border-box;
-		}
-		lbl {
-			width: 25%;
-			padding: 10px 15px;
-			margin: 0px 0;
-			font-size: 20px;
-			color: black;
-			box-sizing: border-box;
-		}
-		lbl1 {
-			width: 25%;
-			padding: 10px 15px;
-			margin: 0px 0;
-			font-size: 22px;
-			color: blue;
-			box-sizing: border-box;
-		}
-		.button {
-			border: none;
-			color: white;
-			padding: 16px 32px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 16px;
-			margin: 4px 2px;
-			transition-duration: 0.4s;
-			cursor: pointer;
-		}
-		.button1 {
-			background-color: white;
-			color: black;
-			border: 2px solid #4CAF50;
-		}
-		.button1:hover {
-			background-color: #4CAF50;
-			color: white;
-		}
-		.button2 {
-			background-color: white;
-			color: black;
-			border: 2px solid #008CBA;
-		}
-		.button2:hover {
-			background-color: #008CBA;
-			color: white;
-		}
-		.button3 {
-			background-color: white;
-			color: black;
-			border: 2px solid #A08CBA;
-		}
-		.button3:hover {
-			background-color: #A08CBA;
-			color: white;
-		}
-		</style>
-		
-		<div align='Left'>
-		<!--
-		<lbl>Automation Step Source:</lbl><lbl1 id=automation_src_id></lbl1><br><br>
-		<lbl>Control: </lbl><input type="text" id="Control_id" value=""/>
-		<lbl>Action: </lbl><input type="text" id="Action_id" value=""/>
-		<lbl>Value: </lbl><input type="text" id="Value_id" value=""/>
-		</div><br>
-		
-		<lbl>Last Dialog Message:</lbl><lbl1 id=Dialog_id></lbl1><br><br>
-		-->
-		
-        <input type="file" accept='text/*' id="choose a file" />
-		
-		<BR><BR><button class="button button2" onClick='collectByClass("button button1")' class='btn btn-info'>Collect Passed Button</button>
-		<button class="button button2" onClick='collectByClass("button button3")' class='btn btn-info'>Collect Failed Button</button>
-		<BR><button class="button button3" >View Failed Steps</button>			
-		<button class="button button1" >View Passed Steps</button>
-		<button class='button button3'>View Failed Steps</button>			
-		
-		<BR><BR><table id="people_table" width="500" border="1">
-			<tr bgcolor='lightYellow'>
-				<th>Firstname</th>
-				<th>Lastname</th>
-				<th>Age</th>
-			</tr>
-			<tr>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA1")'>Bob<textArea type="text" id="TextA1" value="" style='display:none'/></TextArea></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA2")'>Johnson<textArea type="text" id="TextA2" value="" style='display:none'/></TextArea></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA3")'>45<textArea type="text" id="TextA3" value="" style='display:none'/></TextArea></td>
-			</tr>
-			<tr>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB1")'>a<input type="text" id="TextB1" value="a" style='display:none'></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB2")'>b<input type="text" id="TextB2" value="b" style='display:none'></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB3")'>c<input type="text" id="TextB3" value="c" style='display:none'></td>
-			</tr>
-			<tr>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My first name link is clicked')">My First Name</a></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My last name link is clicked')">My Last Name</a></td>
-				<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My age link is clicked')">My Age</a></td>
-				</tr>
-		</table>
+        
+        <input type="submit" id="GET_FILES_ID" value="GET FILES" onClick='getFiles()'/>
 
+        <span>SPAN</span>
         <form id="form1" name="form1" method="get" action="Saturn Interactive STAF.png">
             <table width="500" border="1">
-				<tr bgcolor=''>
-                    <td bgcolor='lightYellow'><label>Multiple Selection </label>&nbsp;</td>
+                <tr bgcolor='white'>
+                    <td>
+						<table id="people_table" width="500" border="1">
+							<th>Firstname</th>
+							<th>Lastname</th>
+							<th>Age</th>
+							<tr>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA1")'>Bob<textArea type="text" id="TextA1" value="" style='display:none'/></TextArea></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA2")'>Johnson<textArea type="text" id="TextA2" value="" style='display:none'/></TextArea></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextA3")'>45<textArea type="text" id="TextA3" value="" style='display:none'/></TextArea></td>
+							</tr>
+							<tr>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB1")'>a<input type="text" id="TextB1" value="a" style='display:none'></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB2")'>b<input type="text" id="TextB2" value="b" style='display:none'></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBGDisplay(this, "lightblue", "TextB3")'>c<input type="text" id="TextB3" value="c" style='display:none'></td>
+							</tr>
+							<tr>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My first name link is clicked')">My First Name</a></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My last name link is clicked')">My Last Name</a></td>
+								<td onClick='updateBG(this, "lightgreen")' ondblClick='updateBG(this, "lightblue")'><a href="javascript:alert('My age link is clicked')">My Age</a></td>
+							</tr>
+							
+						</table>
+					</td>
+					<td></td>	
+					<td></td>	
+                </tr>
+				
+                <tr bgcolor='lightgray'>
+                    <td><label>Multiple Selection </label>&nbsp;</td>
                     <td><select id="MultiSelect" size="10" multiple="multiple" tabindex="1" onChange='setText("MultiSelectText", "MultiSelect" )'>
                         <option value="11">eleven</option>
                         <option value="12">twelve</option>
@@ -343,7 +235,9 @@
                     </select>
                     </td>
                     <td><textArea type="text" id="MultiSelectText" value=""/></TextArea></td>
-                    <td bgcolor='lightYellow'><label>Single Selection </label>&nbsp;</td>
+                </tr>
+                <tr bgcolor='lightblue'>
+                    <td><label>Single Selection </label>&nbsp;</td>
                     <td><select id="SingleSelect" size="10" tabindex="1" onChange='setText( "SingleSelectionText", "SingleSelect" )'>
                         <option value="11">eleven</option>
                         <option value="12">twelve</option>
@@ -358,7 +252,9 @@
                     </select>
                     </td>
                     <td><textArea type="text" id="SingleSelectionText" value="" /></TextArea></td>
-                    <td bgcolor='lightYellow'><label>DropDown</label>&nbsp;</td>
+                </tr>
+                <tr bgcolor='lightgreen'>
+                    <td><label>DropDown</label>&nbsp;</td>
                     <td><select id="DropDown" size="1" tabindex="1" onChange='setText( "DropDownText", "DropDown" )'>
                         <option value="11">eleven</option>
                         <option value="12">twelve</option>
@@ -373,7 +269,10 @@
                     </select>
                     </td>
                     <td><textArea type="text" id="DropDownText" value=""/></TextArea></td>
-                    <td bgcolor='lightYellow'><label>List Items</label>&nbsp;</td>
+                </tr>
+                
+                <tr bgcolor='yellow'>
+                    <td><label>List Items</label>&nbsp;</td>
                     <td><select id="SelectID" size="3" tabindex="1" onChange='setText( "ListItemsText", "SelectID" )'>
                         <option value="1">ONE</option>
                         <option value="2">TWO</option>
@@ -384,20 +283,24 @@
                     </td>
                     <td><textArea type="text" id="ListItemsText" value=""/></TextArea></td>
                 </tr>
-                <tr bgcolor=''>
-                    <td bgcolor='lightYellow'><label>Checkbox</label>&nbsp;</td>
+                <tr bgcolor='lightgray'>
+                    <td><label>Checkbox</label>&nbsp;</td>
                     <td>
-                        <input type="checkbox" name="vehicle" id="CheckboxBikeID" value="Bike" onClick='checkbox( this, "CheckboxText", "I have a bike" )'> I have a bike<br>
-                        <input type="checkbox" name="vehicle" id="CheckboxCarID" value="Car" onClick='checkbox( this, "CheckboxText", "I have a car" )'> I have a car
+                        <input type="checkbox" name="vehicle" id="CheckboxBikeID" value="Bike" onClick='setValue( "CheckboxText", "I have a bike" )'> I have a bike<br>
+                        <input type="checkbox" name="vehicle" id="CheckboxCarID" value="Car" onClick='setValue( "CheckboxText", "I have a car" )'> I have a car
                     </td>
                     <td><textArea type="text" id="CheckboxText" value=""/></TextArea></td>
-                    <td bgcolor='lightYellow'><label>Radio button</label>&nbsp;</td>
+                </tr>
+                <tr bgcolor='yellow'>
+                    <td><label>Radio button</label>&nbsp;</td>
                     <td>
                         <input type="radio" name="gender" id="RadioMaleID" value="male" onClick='setValue( "RadioButtonText", "Male" )'> Male<br>
                         <input type="radio" name="gender" id="RadioFemaleID" value="female" onClick='setValue( "RadioButtonText", "Female" )'> Female
                     </td>
                     <td><textArea type="text" id="RadioButtonText" value=""/></TextArea></td>
-                    <td bgcolor='lightYellow'><label>Links</label>&nbsp;</td>
+                </tr>
+                <tr bgcolor='lightgray'>
+                    <td><label>Links</label>&nbsp;</td>
                     <td>
                         <a href="javascript:updateElementValue( 'LinkText', 'You clicked {link1}' )">link1</a><br>
                         <a href="javascript:updateElementValue( 'LinkText', 'You clicked {link2}' )">link2</a><br>
@@ -405,13 +308,25 @@
                         <a href="javascript:updateElementValue( 'LinkText', 'You clicked {link4}' )">link4</a><br>
                     </td>
                     <td><textArea type="text" id="LinkText" value="" /></TextArea></td>
-                    <td bgcolor='lightYellow'><label>Button</label>&nbsp;</td>
+                </tr>
+                <tr bgcolor='pink'>
+                    <td><label>Button</label>&nbsp;</td>
                     <td>
-                        <input type="submit" id="Btn1" value="Button1" onClick='updateElementValue( "ButtonText", "Button1" );getValue("")'/><br>
-                        <input type="submit" id="Btn2" value="Button2" onClick='updateElementValue( "ButtonText", "Button2" )'/>
+                        <input type="submit" id="Btn1" value="Button one" onClick='updateElementValue( "ButtonText", "Button one" );getValue("")'/><br>
+                        <input type="submit" id="Btn2" value="Button two" onClick='updateElementValue( "ButtonText", "Button two" )'/>
                     </td>
                     <td><textArea type="text" id="ButtonText" value=""/></TextArea></td>
                 </tr>
+				<button type='button' onClick='collectByClass("btn btn-success")' class='btn btn-info'>Collect Passed Button</button>
+				<button type='button' onClick='collectByClass("btn btn-danger")' class='btn btn-info'>Collect Failed Button</button>
+				
+				<button type='button' class='btn btn-danger'>View Failed Steps</button>			
+				<button type='button' class='btn btn-success'>View Passed Steps</button>
+				<button type='button' class='btn btn-danger'>View Failed Steps</button>			
+				<button type='button' class='btn btn-success'>View Passed Steps</button>
+				<button type='button' class='btn btn-danger'>View Failed Steps</button>			
+				<button type='button' class='btn btn-success'>View Passed Steps</button>
+
             </table>
         </form>
     </body>
